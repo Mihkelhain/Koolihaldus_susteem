@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -14,7 +15,7 @@ class TaskController extends Controller
      */
     public function index() : view
     {
-        return View("service.index")
+        return View("Service.Index");
     }
 
     /**
@@ -28,9 +29,25 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
+
     {
-        //
+
+        $validated = $request->validate([
+
+            'Title' => 'required|string|max:255',
+            'Description' => 'required|string|max:255',
+            'Due Date' => 'required|dateTime|max:255',
+            'Worktype' => 'required|string|max:255',
+            'Subject' => 'required|string|max:255',
+            'Status' => 'required|string|max:255',
+
+        ]);
+
+        $task = Task::create($validated);
+        $task->save();
+
+        return redirect(route('Service.Index'));
     }
 
     /**
