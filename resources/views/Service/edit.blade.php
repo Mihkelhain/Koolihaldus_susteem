@@ -1,7 +1,8 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <form method="POST" action="{{ route('services.store') }}">
+        <form method="POST" action="{{ route('service.update', $task) }}">
             @csrf
+            @method('patch')
             <input type="text" name="Title"
                     value="{{ old('Title') }}"
                     placeholder="{{ __('Name the Task') }}"
@@ -26,19 +27,20 @@
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('Status')" class="mt-2" />
 
-            <textarea name="description"
-                    placeholder="{{ __('Add a description for the Task.') }}"
-                class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('description') }}</textarea>
-            <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            <x-primary-button class="mt-4">{{ __('Add Service') }}</x-primary-button>
-
-            <input type="date" name="Due Date"
+                <input type="date" name="Due Date"
                     value="{{ old('DueDate') }}"
                     placeholder="{{ __('Task Completion Time') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('DueDate')" class="mt-2" />
+
+            <textarea name="description"
+                    placeholder="{{ __('Add a description for the Task.') }}"
+                class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('description') }}</textarea>
+            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+            <div class="mt-4 space-x-2">
+                <x-primary-button>{{ __('Save') }}</x-primary-button>
+                <a href="{{ route('services.index') }}">{{ __('Cancel') }}</a>
+            </div>
         </form>
     </div>
 </x-app-layout>
-
-

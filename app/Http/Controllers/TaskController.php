@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +15,11 @@ class TaskController extends Controller
      */
     public function index() : view
     {
-        return View("Service.Index");
+        return view('Service.index', [
+
+            'Service' =>  Task::all(),
+
+        ]);
     }
 
     /**
@@ -61,17 +65,31 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Task $task) : edit
     {
-        //
+        return view("Task.edit",[
+            'Task' => $task,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task) : RedirectResponse
     {
-        //
+
+        $validated = $request->validate([
+            'Title' => 'required|string|max:255',
+            'Description' => 'required|string|max:255',
+            'Due Date' => 'required|dateTime|max:255',
+            'Worktype' => 'required|string|max:255',
+            'Subject' => 'required|string|max:255',
+            'Status' => 'required|string|max:255',
+        ]);
+
+        $service->update($validated);
+
+        return redirect(route('services.index'));
     }
 
     /**
