@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index() : view
     {
-        return view('Service.index', [
+        return view('tasks.index', [
 
             'Service' =>  Task::all(),
 
@@ -40,8 +40,8 @@ class TaskController extends Controller
         $validated = $request->validate([
 
             'Title' => 'required|string|max:255',
-            'Description' => 'required|string|max:255',
-            'Due Date' => 'required|dateTime|max:255',
+            'Description' => 'Nullable|string',
+            'Due Date' => 'required|dateTime',
             'Worktype' => 'required|string|max:255',
             'Subject' => 'required|string|max:255',
             'Status' => 'required|string|max:255',
@@ -51,7 +51,7 @@ class TaskController extends Controller
         $task = Task::create($validated);
         $task->save();
 
-        return redirect(route('Service.Index'));
+        return redirect(route('tasks.index'));
     }
 
     /**

@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <form method="POST" action="{{ route('services.store') }}">
+        <form method="POST" action="{{ route('tasks.store') }}">
             @csrf
             <input type="text" name="Title"
                     value="{{ old('Title') }}"
@@ -36,13 +36,13 @@
                     placeholder="{{ __('Add a description for the Task.') }}"
                 class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('description') }}</textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            <x-primary-button class="mt-4">{{ __('Add Service') }}</x-primary-button>
+            <x-primary-button class="mt-4">{{ __('Add Task') }}</x-primary-button>
 
         </form>
 
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
 
-            @foreach ($Service as $Task)
+            @foreach ($tasks as $Task)
 
                 <div class="p-6 flex space-x-2">
 
@@ -61,7 +61,7 @@
 
 
                             <small class="ml-2 text-sm text-gray-600">{{ $Task->created_at->format('j M Y, g:i a') }}</small>
-                            @unless ($$ask->created_at->eq($Task->updated_at))
+                            @unless ($task->created_at->eq($task->updated_at))
                             <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                             @endunless
                         </div>
@@ -74,7 +74,7 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('services.edit', $Task)">
+                                <x-dropdown-link :href="route('tasks.edit', $Task)">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
                             </x-slot>
@@ -86,6 +86,14 @@
                         <div>
                         <small class="ml-2 text-sm text-gray-600">DueDate: {{ $Task->DueDate }}.</small>
                         </div>
+
+                        <div>
+                        <small class="ml-2 text-sm text-gray-600">Worktype: {{ $Task->Worktype }}.</small>
+                        </div>
+
+                        <div>
+                            <small class="ml-2 text-sm text-gray-600">Status: {{ $Task->Status }}.</small>
+                            </div>
 
                         <div class="ml-2 text-sm text-gray-600">
                             Subject:<span class="text-lg text-gray-800"> {{ $Task->Subject }}</span>
