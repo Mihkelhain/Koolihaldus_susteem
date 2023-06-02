@@ -66,7 +66,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task) : edit
+    public function edit(Task $task) : View
     {
         return view("tasks.edit",[
             'task' => $task,
@@ -80,17 +80,17 @@ class TaskController extends Controller
     {
 
         $validated = $request->validate([
-            'Title' => 'required|string|max:255',
-            'Description' => 'required|string|max:255',
-            'Due Date' => 'required|dateTime|max:255',
-            'Worktype' => 'required|string|max:255',
-            'Subject' => 'required|string|max:255',
-            'Status' => 'required|string|max:255',
+            'title' => 'required|string|max:128',
+            'description' => 'Nullable|string',
+            'dueDate' => 'required|date',
+            'worktype' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
         ]);
 
-        $service->update($validated);
+        $task->update($validated);
 
-        return redirect(route('services.index'));
+        return redirect(route('tasks.index'));
     }
 
     /**
