@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $fillable = [
-        'Title',
-        'Description',
-        'Due Date',
-        'Worktype',
-        'Subject',
-        'Status',
+        'title',
+        'description',
+        'dueDate',
+        'worktype',
+        'subject',
+        'status',
     ];
 
     public function user(): BelongsTo

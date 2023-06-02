@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         return view('tasks.index', [
 
-            'Service' =>  Task::all(),
+            'tasks' =>  Task::all(),
 
         ]);
     }
@@ -39,14 +39,15 @@ class TaskController extends Controller
 
         $validated = $request->validate([
 
-            'Title' => 'required|string|max:255',
-            'Description' => 'Nullable|string',
-            'Due Date' => 'required|dateTime',
-            'Worktype' => 'required|string|max:255',
-            'Subject' => 'required|string|max:255',
-            'Status' => 'required|string|max:255',
+            'title' => 'required|string|max:128',
+            'description' => 'Nullable|string',
+            'dueDate' => 'required|date',
+            'worktype' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
 
         ]);
+
 
         $task = Task::create($validated);
         $task->save();
@@ -67,8 +68,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task) : edit
     {
-        return view("Task.edit",[
-            'Task' => $task,
+        return view("tasks.edit",[
+            'task' => $task,
         ]);
     }
 

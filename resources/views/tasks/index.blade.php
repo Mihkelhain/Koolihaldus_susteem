@@ -2,35 +2,35 @@
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
         <form method="POST" action="{{ route('tasks.store') }}">
             @csrf
-            <input type="text" name="Title"
-                    value="{{ old('Title') }}"
+            <input type="text" name="title"
+                    value="{{ old('title') }}"
                     placeholder="{{ __('Name the Task') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('Title')" class="mt-2" />
+            <x-input-error :messages="$errors->get('title')" class="mt-2" />
 
-                <input type="text" name="Worktype"
-                    value="{{ old('Worktype') }}"
+                <input type="text" name="worktype"
+                    value="{{ old('worktype') }}"
                     placeholder="{{ __('what kind of task is it') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('Worktype')" class="mt-2" />
+            <x-input-error :messages="$errors->get('worktype')" class="mt-2" />
 
-                <input type="text" name="Subject"
-                    value="{{ old('Subject') }}"
+                <input type="text" name="subject"
+                    value="{{ old('subject') }}"
                     placeholder="{{ __('what will the task be about') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('Subject')" class="mt-2" />
+            <x-input-error :messages="$errors->get('subject')" class="mt-2" />
 
-                <input type="text" name="Status"
-                    value="{{ old('Status') }}"
+                <input type="text" name="status"
+                    value="{{ old('status') }}"
                     placeholder="{{ __('What is the status of the task') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('Status')" class="mt-2" />
+            <x-input-error :messages="$errors->get('status')" class="mt-2" />
 
-                <input type="date" name="Due Date"
-                    value="{{ old('DueDate') }}"
+                <input type="date" name="dueDate"
+                    value="{{ old('dueDate') }}"
                     placeholder="{{ __('Task Completion Time') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('DueDate')" class="mt-2" />
+            <x-input-error :messages="$errors->get('dueDate')" class="mt-2" />
 
             <textarea name="description"
                     placeholder="{{ __('Add a description for the Task.') }}"
@@ -57,11 +57,11 @@
 
                         <div class="flex justify-between items-center">
                         <div class="ml-2 text-sm text-gray-600">
-                            Title:<span class="text-lg text-gray-800"> {{ $Task->Title }}</span>
+                            Title:<span class="text-lg text-gray-800"> {{ $Task->title }}</span>
 
 
                             <small class="ml-2 text-sm text-gray-600">{{ $Task->created_at->format('j M Y, g:i a') }}</small>
-                            @unless ($task->created_at->eq($task->updated_at))
+                            @unless ($Task->created_at->eq($Task->updated_at))
                             <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                             @endunless
                         </div>
@@ -84,19 +84,19 @@
                         </div>
 
                         <div>
-                        <small class="ml-2 text-sm text-gray-600">DueDate: {{ $Task->DueDate }}.</small>
+                        <small class="ml-2 text-sm text-gray-600">DueDate: {{ $Task->dueDate }}.</small>
                         </div>
 
                         <div>
-                        <small class="ml-2 text-sm text-gray-600">Worktype: {{ $Task->Worktype }}.</small>
+                        <small class="ml-2 text-sm text-gray-600">Worktype: {{ $Task->worktype }}.</small>
                         </div>
 
                         <div>
-                            <small class="ml-2 text-sm text-gray-600">Status: {{ $Task->Status }}.</small>
+                            <small class="ml-2 text-sm text-gray-600">Status: {{ $Task->status }}.</small>
                             </div>
 
                         <div class="ml-2 text-sm text-gray-600">
-                            Subject:<span class="text-lg text-gray-800"> {{ $Task->Subject }}</span>
+                            Subject:<span class="text-lg text-gray-800"> {{ $Task->subject }}</span>
                         </div>
 
                         <p class="ml-2 my-4 text-gray-900">{{ $Task->description }}</p>
