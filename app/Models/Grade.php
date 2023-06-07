@@ -11,8 +11,6 @@ class Grade extends Model
     protected $fillable = [
         'gradeSubject',
         'grade',
-        'avgGrade',
-        'totalGrade',
     ];
 
     public function user(): BelongsTo
@@ -20,6 +18,14 @@ class Grade extends Model
     {
 
         return $this->belongsTo(User::class);
+
+    }
+
+    public function task(): BelongsTo
+
+    {
+
+        return $this->belongsTo(Task::class);
 
     }
 }

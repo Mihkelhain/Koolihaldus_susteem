@@ -1,25 +1,43 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <form method="POST" action="{{ route('Grades.store') }}">
+        <form method="POST" action="{{ route('grades.store') }}">
             @csrf
 
-          <!--  <input type="datetime-local" name="booking_time" value="{{ old('booking_time') }}" placeholder="{{ __('Grade date and time') }}"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-            <x-input-error :messages="$errors->get('booking_time')" class="mt-2" />
+            <label>{{ __('Subject of the grade') }}
+           <input type="string" name="gradeSubject" value="{{ old('gradeSubject') }}" placeholder="{{ __('Grade Subject') }}"
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                step="900">
+            <x-input-error :messages="$errors->get('gradeSubject')" class="mt-2" />
+            </label>
 
-            <x-primary-button class="mt-4">{{ __('Add Grades') }}</x-primary-button> -->
+            <label>{{ __('Grade') }}
+                <input type="integer" name="grade" value="{{ old('grade') }}" placeholder="{{ __('Grade') }}"
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                step="900">
+
+            <x-input-error :messages="$errors->get('grade')" class="mt-2" />
+            </label>
+
+            <label>{{ __('Grade')}}
+                <select name="task_id" id="">
+                    <option value="0" disabled selected>{{ __('Select Task') }}</option>
+                    @foreach ($tasks as $task)
+                    <option value="{{$task->id}}" @selected(old('task_id')==$task->id) >{{ $task->title }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <x-input-error :messages="$errors->get('service_id')" class="mt-2" />
+
+            <x-primary-button class="mt-4">{{ __('Add Grades') }}</x-primary-button>
         </form>
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
-            @foreach ($grade as $grade)
+            @foreach ($grades as $grade)
             <div class="flex-1">
                 <div>
                     <div class="flex justify-between items-center">
                     <div class="ml-2 text-sm text-gray-600">
-                        grade Time:<span class="text-lg text-gray-800"> {{ $grade->booking_time }}</span><br>
-                        Server:<span class="text-lg text-gray-800"> {{ $grade->server->name }}</span><br>
-                        @if (isset($grade->client))
-                        Client:<span class="text-lg text-gray-800"> {{ $grade->client->name }}</span>
-                        @endif
+                        Subject:<span class="text-lg text-gray-800"> {{ $grade->gradeSubject }}</span><br>
+                        Grade:<span class="text-lg text-gray-800"> {{ $grade->grade }}</span><br>
                         {{-- <small class="ml-2 text-sm text-gray-600">{{ $booking->created_at->format('j M Y, g:i a') }}</small>
                         @unless ($booking->created_at->eq($booking->updated_at))
                         <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
@@ -34,20 +52,20 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('grade.edit', $grade)">
+                            <x-dropdown-link :href="route('grades.edit', $grade)">
                                 {{ __('Edit') }}
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                     </div>
-                    @if (isset($grade->service))
+                    @if (isset($grade->task))
                     <div>
-                    <small class="ml-2 text-sm text-gray-600">Duration: {{ $grade->service->duration_minutes }}minutes.</small>
+                    <small class="ml-2 text-sm text-gray-600">Date: {{ $grade->task->dueDate }}.</small>
                     </div>
                     <div class="ml-2 text-sm text-gray-600">
-                        Base Price:<span class="text-lg text-gray-800"> {{ $grade->service->basePrice_cents / 100 }}€</span>
+
                     </div>
-                    <p class="ml-2 my-4 text-gray-900">{{ $grade->service->description }}</p>
+                    <p class="ml-2 my-4 text-gray-900">{{ $grade->task->description }}</p>
                     @endif
                 </div>
             </div>

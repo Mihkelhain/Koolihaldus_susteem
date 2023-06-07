@@ -19,7 +19,7 @@
                         {{ __('Tasks') }}
                     </x-nav-link>
                     <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.index')">
-                        {{ __('grades') }}
+                        {{ __('Grades') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 {{ __('tasks') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.index')">
-                {{ __('grades') }}
+                {{ __('Grades') }}
             </x-responsive-nav-link>
         </div>
 

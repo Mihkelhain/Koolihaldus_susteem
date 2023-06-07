@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use DateInterval;
+
+
 
 class GradeController extends Controller
 {
@@ -15,6 +20,7 @@ class GradeController extends Controller
     {
         return View("grades.index",[
             'grades'=>Grade::all(),
+            'tasks'=>task::all(),
         ]);
      }
 
@@ -31,7 +37,20 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'gradeSubject' => 'required|string|max:128',
+            'grade' => 'required|int|max:5',
+            'task_id' => 'required|gt:0',
+
+        ]);
+        $grade = new Grade;
+        $grade->gradeSubject= $validated['gradeSubject'];
+        $grade->grade = $validated['grade'];
+        $grade->task()->associate(Task::find($validated['task_id']));
+        $grade->user()->associate($request->user());
+        $grade->save();
+
+        return redirect(route('grades.index'));
     }
 
     /**
@@ -45,9 +64,13 @@ class GradeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Grade $grade)
+    public function edit(Grade $grade) : View
     {
-        //
+        
+        return view('grades.edit',[
+            'grade'=>$grade,
+            'tasks'=>Task::all(),
+        ]);
     }
 
     /**
@@ -55,7 +78,16 @@ class GradeController extends Controller
      */
     public function update(Request $request, Grade $grade)
     {
-        //
+
+        $validated = $request->validate([
+            'gradeSubject' => 'required|string|max:128',
+            'grade' => 'required|int|max:5',
+            'task_id' => 'required|gt:0',
+        ]);
+        $grade->update($validated);
+
+        return redirect(route('grades.index'));
+
     }
 
     /**

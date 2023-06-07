@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('gradeSubject');
             $table->integer('grade');
-            $table->integer('avgGrade');
-            $table->integer('totalGrade');
+            $table->unsignedBigInteger('task_id')->nullable()
+                    ->references('id')
+                    ->on('tasks');
+            $table->unsignedBigInteger('user_id')
+                    ->references('id')
+                    ->on('users');
             $table->timestamps();
         });
     }
