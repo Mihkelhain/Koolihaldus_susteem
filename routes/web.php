@@ -26,6 +26,9 @@ Route::get('/dashboard', function () {
 Route::resource('tasks', TaskController::class)
     ->middleware(['auth', 'verified']);
 
+    Route::resource('grades', GradeController::class)
+    ->middleware(['auth', 'verified']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
