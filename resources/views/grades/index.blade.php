@@ -19,7 +19,8 @@
             </label>
 
             <label>{{ __('Grade')}}
-                <select name="task_id" id="">
+                <select name="task_id" id=""
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                     <option value="0" disabled selected>{{ __('Select Task') }}</option>
                     @foreach ($tasks as $task)
                     <option value="{{$task->id}}" @selected(old('task_id')==$task->id) >{{ $task->title }}</option>

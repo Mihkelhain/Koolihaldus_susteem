@@ -66,7 +66,12 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade) : View
     {
-        
+        $dueDate = date_create($Task->dueDate);
+        $seconds = $dueDate->format('s');
+        if($seconds > 0){
+            $dueDate->sub(new DateInterval("PT".$seconds."S"));
+            $grade->dueDate = $dueDate->format('c');
+        }
         return view('grades.edit',[
             'grade'=>$grade,
             'tasks'=>Task::all(),
