@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',128);
             $table->text('description')->nullable();
-            $table->dateTime('dueDate');
+            $table->date('dueDate');
             $table->string('worktype');
             $table->string('subject');
             $table->string('status');
