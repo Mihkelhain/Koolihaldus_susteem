@@ -40,6 +40,17 @@
 
         </form>
 
+        <form method="GET" action="{{ route('tasks.index') }}">
+            @csrf
+            <input type="text" name="search"
+                    value="{{ old('search',$search_string) }}"
+                    placeholder="{{ __('Enter your search here') }}"
+                    class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+            <x-input-error :messages="$errors->get('search')" class="mt-2" />
+            <x-primary-button class="mt-4">{{ __('Search Task') }}</x-primary-button>
+        </form>
+
+
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
 
             @foreach ($tasks as $Task)
@@ -77,6 +88,9 @@
                                 <x-dropdown-link :href="route('tasks.edit', $Task)">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('tasks.show', $Task)">
+                                    {{ __('Delete') }}
+                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
 
@@ -88,11 +102,11 @@
                         </div>
 
                         <div>
-                        <small class="ml-2 text-sm text-gray-600">Worktype: {{ $Task->worktype }}.</small>
+                        <small class="ml-2 text-sm text-gray-600">Worktype: {{ $Task->worktype }}</small>
                         </div>
 
                         <div>
-                            <small class="ml-2 text-sm text-gray-600">Status: {{ $Task->status }}.</small>
+                            <small class="ml-2 text-sm text-gray-600">Status: {{ $Task->status }}</small>
                             </div>
 
                         <div class="ml-2 text-sm text-gray-600">

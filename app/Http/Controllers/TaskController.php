@@ -10,15 +10,26 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
-    public function index() : view
+    public function index(Request $request): view
     {
+        if ($request->has('search')) {
+            $filtered_tasks = Task::all()->filter(function($task) use ($request){
+                return str_contains(strtolower($task->title."|".$task->description."|".$task->worktype.'|'.$task->subject.'|'.$task->status), strtolower($request->input('search')));
+            });
+            return view('tasks.index', [
+                'tasks' => $filtered_tasks,
+                'search_string' => $request->input('search'),
+            ]);
+        }
+
         return view('tasks.index', [
-
-            'tasks' =>  Task::all(),
-
+            'tasks' => Task::all(),
+            'search_string' => "",
         ]);
     }
 
@@ -58,9 +69,11 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Task $task) : View
     {
-        //
+        return view("tasks.show",[
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -96,8 +109,10 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task) : RedirectResponse
     {
-        //
+        Task::destroy($task->id);
+        return redirect(route('tasks.index'));
     }
+
 }

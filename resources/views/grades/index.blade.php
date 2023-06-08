@@ -4,16 +4,16 @@
             @csrf
 
             <label>{{ __('Subject of the grade') }}
-           <input type="string" name="gradeSubject" value="{{ old('gradeSubject') }}" placeholder="{{ __('Grade Subject') }}"
+           <input type="text" name="gradeSubject" value="{{ old('gradeSubject') }}" placeholder="{{ __('Grade Subject') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                 step="900">
             <x-input-error :messages="$errors->get('gradeSubject')" class="mt-2" />
             </label>
 
             <label>{{ __('Grade') }}
-                <input type="integer" name="grade" value="{{ old('grade') }}" placeholder="{{ __('Grade') }}"
+                <input type="number" name="grade" value="{{ old('grade') }}" placeholder="{{ __('Grade') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                step="900">
+                step="1">
 
             <x-input-error :messages="$errors->get('grade')" class="mt-2" />
             </label>
