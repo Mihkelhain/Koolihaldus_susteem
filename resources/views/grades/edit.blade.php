@@ -5,11 +5,11 @@
             @method('patch')
             <label>{{ __('Grade and Subject') }}
                                                                                                                         {{-- yyyy-MM-ddThh:mm --}}
-            <input type="string" name="gradeSubject" value="{{ old('gradeSubject') }}" placeholder="{{ __('Grade Subject') }}"
+            <input type="string" name="gradeSubject" value="{{ old('gradeSubject', $grade->gradeSubject) }}" placeholder="{{ __('Grade Subject') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('gradeSubject')" class="mt-2" />
 
-                <input type="integer" name="grade" value="{{ old('grade') }}" placeholder="{{ __('Grade') }}"
+                <input type="integer" name="grade" value="{{ old('grade',$grade->grade) }}" placeholder="{{ __('Grade') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('grade')" class="mt-2" />
 

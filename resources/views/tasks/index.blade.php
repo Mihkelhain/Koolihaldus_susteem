@@ -32,14 +32,15 @@
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('dueDate')" class="mt-2" />
 
-            <textarea name="description"
+            <!--<textarea name="description"-->
+                <input type="text" name="description"
                     placeholder="{{ __('Add a description for the Task.') }}"
                 class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('description') }}</textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Add Task') }}</x-primary-button>
 
         </form>
-
+        <br>
         <form method="GET" action="{{ route('tasks.index') }}">
             @csrf
             <input type="text" name="search"

@@ -67,6 +67,7 @@
 
                     </div>
                     <p class="ml-2 my-4 text-gray-900">{{ $grade->task->description }}</p>
+                    <br>
                     @endif
                 </div>
             </div>
